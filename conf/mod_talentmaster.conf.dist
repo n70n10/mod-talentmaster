@@ -1,0 +1,38 @@
+[TalentMaster]
+
+# ---------------------------------------------------------------
+# Command interface
+#   .talent reset      – reset all talents for free
+#   .talent resetpet   – reset pet talents for free (Hunter only)
+# ---------------------------------------------------------------
+
+# Enable or disable the .talent chat commands for regular players.
+TalentMaster.Command.Enable = 1
+
+# ---------------------------------------------------------------
+# NPC gossip interface
+#
+# Set TalentMaster.NPC.Entry to the creature_template entry ID of
+# the NPC you want to act as the Talent Master.
+#
+# You can use any existing NPC entry or create a custom one.
+# To create a custom NPC in-game (as GM):
+#
+#   .npc add <entry>
+#
+# Then open the gossip by right-clicking it as a regular player.
+#
+# The script name "TalentMasterGossipScript" must also be set on
+# the creature_template row:
+#
+#   UPDATE creature_template
+#   SET ScriptName = 'TalentMasterGossipScript'
+#   WHERE entry = <entry>;
+# ---------------------------------------------------------------
+
+# Enable or disable the NPC gossip interface.
+TalentMaster.NPC.Enable = 1
+
+# creature_template entry ID of the Talent Master NPC.
+# 0 = disabled (logs a warning at startup).
+TalentMaster.NPC.Entry = 0
