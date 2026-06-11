@@ -31,8 +31,8 @@ TalentMaster.Command.Enable = 1
 # ---------------------------------------------------------------
 
 # Enable or disable the NPC gossip interface.
-TalentMaster.NPC.Enable = 1
+TalentMaster.Npc.Enable = 1
 
 # creature_template entry ID of the Talent Master NPC.
 # 0 = disabled (logs a warning at startup).
-TalentMaster.NPC.Entry = 0
+TalentMaster.Npc.Entry = 0

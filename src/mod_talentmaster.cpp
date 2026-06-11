@@ -155,7 +155,7 @@ public:
 
     bool OnGossipHello(Player* player, Creature* creature) override
     {
-        if (!sConfigMgr->GetOption<bool>("TalentMaster.NPC.Enable", true))
+        if (!sConfigMgr->GetOption<bool>("TalentMaster.Npc.Enable", true))
             return false;
 
         ClearGossipMenuFor(player);
@@ -176,7 +176,7 @@ public:
 
     bool OnGossipSelect(Player* player, Creature* creature, uint32 /*sender*/, uint32 action) override
     {
-        if (!sConfigMgr->GetOption<bool>("TalentMaster.NPC.Enable", true))
+        if (!sConfigMgr->GetOption<bool>("TalentMaster.Npc.Enable", true))
             return false;
 
         ClearGossipMenuFor(player);
@@ -283,19 +283,19 @@ public:
 
     void OnStartup() override
     {
-        if (!sConfigMgr->GetOption<bool>("TalentMaster.NPC.Enable", true))
+        if (!sConfigMgr->GetOption<bool>("TalentMaster.Npc.Enable", true))
             return;
 
-        uint32 entry = sConfigMgr->GetOption<uint32>("TalentMaster.NPC.Entry", 0);
+        uint32 entry = sConfigMgr->GetOption<uint32>("TalentMaster.Npc.Entry", 0);
         if (entry == 0)
         {
-            LOG_WARN("server.loading", "mod-talentmaster: TalentMaster.NPC.Enable is on but TalentMaster.NPC.Entry is 0.");
+            LOG_WARN("server.loading", "mod-talentmaster: TalentMaster.Npc.Enable is on but TalentMaster.Npc.Entry is 0.");
             return;
         }
 
         if (!sObjectMgr->GetCreatureTemplate(entry))
         {
-            LOG_ERROR("server.loading", "mod-talentmaster: TalentMaster.NPC.Entry {} not found in creature_template.", entry);
+            LOG_ERROR("server.loading", "mod-talentmaster: TalentMaster.Npc.Entry {} not found in creature_template.", entry);
             return;
         }
 
