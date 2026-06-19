@@ -153,14 +153,8 @@ class TalentMasterGossipScript : public CreatureScript
 public:
     TalentMasterGossipScript() : CreatureScript("TalentMasterGossipScript") {}
 
-    bool OnGossipHello(Player* player, Creature* /*creature*/) override
+    bool OnGossipHello(Player* player, Creature* creature) override
     {
-        if (!sConfigMgr->GetOption<bool>("TalentMaster.Npc.Enable", true))
-        {
-            CloseGossipMenuFor(player);
-            return true;
-        }
-
         ClearGossipMenuFor(player);
 
         AddGossipItemFor(player, GOSSIP_ICON_TALK, GOSSIP_MENU_RESET_PLAYER,
@@ -172,18 +166,13 @@ public:
                              GOSSIP_SENDER_MAIN, GOSSIP_ACTION_RESET_PET);
         }
 
+        // Always send the menu — both hunters and non-hunters need it.
         SendGossipMenuFor(player, DEFAULT_GOSSIP_MESSAGE, creature->GetGUID());
         return true;
     }
 
     bool OnGossipSelect(Player* player, Creature* creature, uint32 /*sender*/, uint32 action) override
     {
-        if (!sConfigMgr->GetOption<bool>("TalentMaster.Npc.Enable", true))
-        {
-            CloseGossipMenuFor(player);
-            return true;
-        }
-
         ClearGossipMenuFor(player);
 
         switch (action)
@@ -308,9 +297,16 @@ public:
     }
 };
 
+// Standard Automatic Script Loader
 void Addmod_talentmasterScripts()
 {
     new TalentMasterWorld();
     new TalentMasterCommandScript();
-    new TalentMasterGossipScript();
+
+    // Only register the gossip CreatureScript when the NPC is enabled. Otherwise
+    // the script name has no creature_template assigned to it, and the core would
+    // warn at startup that 'TalentMasterGossipScript' is not assigned in the
+    // database. The .talent command above remains available regardless.
+    if (sConfigMgr->GetOption<bool>("TalentMaster.Npc.Enable", true))
+        new TalentMasterGossipScript();
 }
